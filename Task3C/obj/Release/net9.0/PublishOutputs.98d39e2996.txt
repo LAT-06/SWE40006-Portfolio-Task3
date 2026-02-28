@@ -1,0 +1,7 @@
+/home/lat/Documents/Swinburne/swe40006/w3/Task3C/bin/Publish/Task3C
+/home/lat/Documents/Swinburne/swe40006/w3/Task3C/bin/Publish/appsettings.Development.json
+/home/lat/Documents/Swinburne/swe40006/w3/Task3C/bin/Publish/appsettings.json
+/home/lat/Documents/Swinburne/swe40006/w3/Task3C/bin/Publish/Task3C.dll
+/home/lat/Documents/Swinburne/swe40006/w3/Task3C/bin/Publish/Task3C.deps.json
+/home/lat/Documents/Swinburne/swe40006/w3/Task3C/bin/Publish/Task3C.runtimeconfig.json
+/home/lat/Documents/Swinburne/swe40006/w3/Task3C/bin/Publish/Task3C.pdb

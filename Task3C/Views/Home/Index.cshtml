@@ -1,0 +1,109 @@
+﻿@model Task3C.Models.ScheduleViewModel
+@{
+    ViewData["Title"] = "Work Schedule";
+}
+
+<!-- Page Header -->
+<div class="page-header">
+    <div class="page-header-left">
+        <h1 class="page-title">Work Schedule</h1>
+        <p class="page-subtitle">@Model.WeekLabel</p>
+    </div>
+    <div class="page-header-right">
+        <button class="btn-action btn-secondary-action">&laquo; Prev Week</button>
+        <button class="btn-action btn-primary-action">Today</button>
+        <button class="btn-action btn-secondary-action">Next Week &raquo;</button>
+    </div>
+</div>
+
+<!-- Summary Stats -->
+<div class="stats-row">
+    <div class="stat-card" style="--accent:#6366f1">
+        <div class="stat-info">
+            <span class="stat-value">@Model.TotalWorkers</span>
+            <span class="stat-label">Total Workers</span>
+        </div>
+    </div>
+    <div class="stat-card" style="--accent:#10b981">
+        <div class="stat-info">
+            <span class="stat-value">@Model.TotalShiftsThisWeek</span>
+            <span class="stat-label">Shifts This Week</span>
+        </div>
+    </div>
+    <div class="stat-card" style="--accent:#f59e0b">
+        <div class="stat-info">
+            <span class="stat-value">@Model.TotalHoursThisWeek</span>
+            <span class="stat-label">Total Hours</span>
+        </div>
+    </div>
+    <div class="stat-card" style="--accent:#ef4444">
+        <div class="stat-info">
+            <span class="stat-value">@Model.Workers.Sum(w => w.WeeklyShifts.Values.Count(s => s == "night"))</span>
+            <span class="stat-label">Night Shifts</span>
+        </div>
+    </div>
+</div>
+
+<!-- Shift Legend -->
+<div class="legend-bar">
+    <span class="legend-title">Shift Types:</span>
+    <span class="shift-badge shift-morning">Morning &nbsp;06:00&ndash;14:00</span>
+    <span class="shift-badge shift-afternoon">Afternoon &nbsp;14:00&ndash;22:00</span>
+    <span class="shift-badge shift-night">Night &nbsp;22:00&ndash;06:00</span>
+    <span class="shift-badge shift-off">Day Off</span>
+</div>
+
+<!-- Schedule Table -->
+<div class="schedule-card">
+    <div class="table-responsive">
+        <table class="schedule-table">
+            <thead>
+                <tr>
+                    <th class="worker-col">Employee</th>
+                    <th class="dept-col">Department</th>
+                    @foreach (var day in Model.Days)
+                    {
+                        <th class="day-col">@day</th>
+                    }
+                    <th class="hours-col">Hrs</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var worker in Model.Workers)
+                {
+                    var workerHours = worker.WeeklyShifts.Values.Count(s => s != "off") * 8;
+                    <tr class="worker-row">
+                        <td class="worker-cell">
+                            <div class="worker-info">
+                                <div class="avatar" style="background:@worker.AvatarColor">
+                                    @(string.Concat(worker.Name.Split(' ').Select(p => p[0])))
+                                </div>
+                                <div>
+                                    <div class="worker-name">@worker.Name</div>
+                                    <div class="worker-role">@worker.Role</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="dept-cell">
+                            <span class="dept-tag">@worker.Department</span>
+                        </td>
+                        @foreach (var day in Model.Days)
+                        {
+                            var shift = worker.WeeklyShifts.ContainsKey(day) ? worker.WeeklyShifts[day] : "off";
+                            var shiftLabel = shift switch {
+                                "morning"   => "Morning",
+                                "afternoon" => "Afternoon",
+                                "night"     => "Night",
+                                _           => "—"
+                            };
+                            <td class="shift-cell">
+                                <span class="shift-pill shift-@shift">@shiftLabel</span>
+                            </td>
+                        }
+                        <td class="hours-cell">@workerHours h</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

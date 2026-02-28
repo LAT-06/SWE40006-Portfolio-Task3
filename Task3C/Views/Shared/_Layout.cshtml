@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - ShiftSync</title>
+    <script type="importmap"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Task3C.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <nav class="top-navbar">
+        <div class="nav-brand">
+            <span class="brand-name">ShiftSync</span>
+        </div>
+        <div class="nav-links">
+            <a class="nav-link-item active" asp-area="" asp-controller="Home" asp-action="Index">Schedule</a>
+            <a class="nav-link-item" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+        <div class="nav-user">
+            <div class="user-avatar">AM</div>
+            <span class="user-name">Admin</span>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        @RenderBody()
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <span>ShiftSync &mdash; Worker Schedule Manager</span>
+            <span>&copy; 2026 &nbsp;·&nbsp; <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy Policy</a></span>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
